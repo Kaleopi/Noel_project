@@ -1,0 +1,9 @@
+.container form{
+    margin-top:20%;
+}
+
+.login_form{
+    width: 500px;
+    height: auto;
+    margin: 0 auto;
+}
