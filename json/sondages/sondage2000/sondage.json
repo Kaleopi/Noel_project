@@ -1,0 +1,28 @@
+{
+   "id": 2000,
+   "responsable": {
+      "id": 996,
+      "pseudo": "Potato",
+      "email": "potato@mail.com"
+   },
+   "nbUtilisateurs": 1,
+   "titre": "Sondage 2",
+   "questions": [
+      {
+         "choix": [
+            "choix 1",
+            "choix 2",
+            "choix 3"
+         ],
+         "intitule": "Voici une question ?"
+      },
+      {
+         "choix": [
+            "ok",
+            "nope",
+            "UwU"
+         ],
+         "intitule": "hein ?"
+      }
+   ]
+}

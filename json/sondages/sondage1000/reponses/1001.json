@@ -1,0 +1,11 @@
+{
+    "utilisateur": {
+        "id": 1001,
+        "pseudo": "user2",
+        "email": "mail"
+    },
+    "choix": [
+        2,
+        2
+    ]
+}

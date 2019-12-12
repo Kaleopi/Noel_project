@@ -1,0 +1,19 @@
+- serveur authentification : java, HTTP
+	- vérification login mot de passe
+	- création client
+	- récupération information client
+
+- serveur backoffice : PHP, HTTP
+	- chaque usine à son démarrage, s'enregistre sur le backoffice
+	- possiède la liste des usines en mémoire
+	- liste produits
+	- lancement commande
+
+- Usines : HTTP
+	- liste produits
+	- commande produit
+	- récupère les produits et stock les commandes depuis des JSON
+
+- Autorité de certification
+
+- 
