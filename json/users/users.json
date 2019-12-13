@@ -34,4 +34,7 @@
 {"mdp":"@ntitan","id":1000,"pseudo":"AntiTitan","email":"anti@titan.com"},
 {"mdp":"nana","id":1000,"pseudo":"nana","email":"nana@nana.com"},
 {"mdp":"coucoujuju","id":1000,"pseudo":"pommepomme","email":"thomas.gigout@etudiant.univ-reims.fr"},
+{"mdp":"mdp","id":1000,"pseudo":"login","email":"email@mail.fr"},
+{"mdp":"mdp2","id":1001,"pseudo":"login2","email":"mail@mail.fr"},
+{"mdp":"mdp3","id":1002,"pseudo":"login3","email":"mail3@mail.fr"},
 ]}

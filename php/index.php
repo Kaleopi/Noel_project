@@ -30,14 +30,30 @@ else if(isset($_POST['inscription'])){
         <form class="login_form shadow p-3 mb-5 bg-light rounded" method="POST" action="connexion.php">
             <div class="form-group">
                 <label for="login">Login</label>
-                <input type="text" class="form-control" name="login" required>
+                <input type="text" class="form-control" name="login">
             </div>
             <div class="form-group">
                 <label for="pwd">Mot de passe</label>
-                <input type="password" class="form-control" name="pwd" required>
+                <input type="password" class="form-control" name="pwd">
             </div>
-            <button type="submit" name="connexion" class="btn btn-primary">Me connecter !</button>
-            <button type="submit" name="inscription" class="btn btn-warning">M'inscrire !</button>
+            <?php 
+            if(isset($_POST['inscription'])){
+                echo "
+                    <div class=\"form-group\">
+                        <label for=\"email\">Email</label>
+                        <input type=\"email\" class=\"form-control\" name=\"email\">
+                    </div>
+                    <button type=\"submit\" name=\"connexion\" class=\"btn btn-primary\">Me connecter !</button>
+                    <button type=\"submit\" name=\"inscription\" class=\"btn btn-warning\" formaction=\"connexion.php\">M'inscrire !</button>
+                ";
+            }
+            else{
+                echo"
+                <button type=\"submit\" name=\"connexion\" class=\"btn btn-primary\">Me connecter !</button>
+                <button type=\"submit\" name=\"inscription\" class=\"btn btn-warning\" formaction=\"index.php\">M'inscrire !</button>
+                ";
+            }
+            ?>
         </form>
     </div> 
     <script src="js/snow.js"></script>

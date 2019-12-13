@@ -25,14 +25,7 @@ class CreateHandler implements HttpHandler {
 
     public void handle(HttpExchange t) {
         HashMap<String, String> jtab = new HashMap<String, String>();
-        //String reponse = "";
-        String reponse = "<!DOCTYPE html>" +
-                         "<html lang=\"fr\">" +
-                         "<head>" +
-                         "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>" +
-                         "</head>" +
-                         "<body>" +
-                         "<h1>Page de vérification de création de compte</h1>";
+        String reponse = "";
 
         // Récupération des données
         URI requestedUri = t.getRequestURI();
@@ -77,7 +70,8 @@ class CreateHandler implements HttpHandler {
                 tab1[0]=tab1[0].split("=",2)[1];
                 tab2[0]=tab2[0].split("=",2)[1];
                 tab3[0]=tab3[0].split("=",2)[1];
-                boolean marche = gest.addUser(tab2[0], tab1[0], tab3[0]);
+                boolean marche = gest.addUser(tab3[0], tab1[0], tab2[0]);
+                System.out.println("here" + tab2[0] +" "+ tab1[0]+" " + tab3[0]);
                 System.out.println("here marche = "+marche);
                 if(marche) {
                     Utilisateur uu = gest.searchUser(tab1[0]);
@@ -87,18 +81,18 @@ class CreateHandler implements HttpHandler {
                     jtab.put("user",uu.toJSON().toString());
                     JSONObject jsona = new JSONObject(jtab);
                     System.out.println(jsona);
-                    //reponse += jsona;
+                    reponse += jsona;
                     // redirection vers la liste des usines
-                    reponse += "<b>Votre comte a été créé, vous pouvez maintenant accéder à la liste des usines. </b></p>";
-                    reponse+="<b><a href=\"http://localhost/projet3/php/backoffice.php\">Afficher la liste des usines</a></p>";
+                    // reponse += "<b>Votre comte a été créé, vous pouvez maintenant accéder à la liste des usines. </b></p>";
+                    // reponse+="<b><a href=\"http://localhost/projet3/php/backoffice.php\">Afficher la liste des usines</a></p>";
                 }else{
                     jtab.put("code","erreur");
                     jtab.put("message","Ce pseudo existe deja");
                     JSONObject jsona = new JSONObject(jtab);
                     System.out.println(jsona);
-                    //reponse += jsona;
-                    reponse += "<b>Ce pseudo existe déja, </b></p>";
-                    reponse += "<a href=\"./createForm.html\">Retour à la création de compte</a>";
+                    reponse += jsona;
+                    // reponse += "<b>Ce pseudo existe déja, </b></p>";
+                    // reponse += "<a href=\"./createForm.html\">Retour à la création de compte</a>";
                 }
             } catch(UnsupportedEncodingException e) {
                 query = "";
