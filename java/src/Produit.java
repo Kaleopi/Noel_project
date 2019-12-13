@@ -45,4 +45,8 @@ public class Produit{
         return obj;
     }
 
+    public static Produit fromJSON(JSONObject j) {
+        return new Produit ((int)j.get("id"),(String)j.get("nom"), (int)j.get("stock"));
+    }
+
 }

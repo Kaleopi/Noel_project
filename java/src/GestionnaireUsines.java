@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @version 2019/10/30
  */
 class GestionnaireUsines {
-    ArrayList<String> usines;
+    private ArrayList<String> usines;
     /**
      * Constructeur GestionnaireUtilisateuers
      */

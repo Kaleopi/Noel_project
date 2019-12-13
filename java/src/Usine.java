@@ -13,10 +13,9 @@ import java.lang.invoke.MethodHandles;
  * @version 2019/10/11
  */
 public class Usine {
-    // private ArrayList<Produit> produits;
-    // private ArrayList<Commande> commandes;
-    // a mettre dans gest
-    // private GestionnaireProduit gest = new GestionnaireProduit();
+    private ArrayList<Produit> produits;
+    private ArrayList<Commande> commandes;
+    private static GestionnaireProduits gest;
 
 
 
@@ -44,6 +43,9 @@ public class Usine {
                 System.exit(-1);
             }
         }
+
+        //initialiser le gestionnaire de produits
+        gest = new GestionnaireProduits(config.getString("nom"));
 
         //démarrage du serveur
         HttpServer serveur = null;

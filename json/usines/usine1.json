@@ -1,0 +1,30 @@
+{
+  "nom": "usine1",
+  "produits": [{
+    "id": 1,
+    "nom": "iPhone",
+    "stock":
+  }, {
+    "id": 2,
+    "nom": "Nounours",
+    "stock":
+  }, {
+    "id": 3,
+    "nom": "Chausettes",
+    "stock":
+  }, {
+    "id": 4,
+    "nom": "Plante",
+    "stock":
+  }
+  ],
+  "commandes": [{
+    "id": 1,
+    "produit": {
+      "id": 3,
+      "nom": "Chausettes",
+      "stock":
+    },
+    "qte": 10
+  }],
+}
