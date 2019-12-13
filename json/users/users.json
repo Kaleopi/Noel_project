@@ -1,0 +1,37 @@
+{
+    "users": [
+        {
+            "id": 0996,
+            "pseudo": "Potato",
+            "email": "potato@mail.com",
+            "mdp": "0000"
+        },
+        {
+            "id": 0997,
+            "pseudo": "Tomato",
+            "email": "tomato@mail.com",
+            "mdp": "1111"
+        },
+        {
+            "id": 0998,
+            "pseudo": "Beans",
+            "email": "beans@mail.com",
+            "mdp": "2222"
+        },
+        {
+            "id": 0999,
+            "pseudo": "Greens",
+            "email": "greens@mail.com",
+            "mdp": "3333"
+        },
+
+{"mdp":"log","id":1000,"pseudo":"log","email":"log"},
+{"mdp":"az","id":1000,"pseudo":"az","email":"az"},
+{"mdp":"pl","id":1000,"pseudo":"pl","email":"pl"},
+{"mdp":"qs","id":1000,"pseudo":"qs","email":"qs"},
+{"mdp":"merenoel","id":1000,"pseudo":"PereNoel","email":"perenoel@polenord.com"},
+{"mdp":"perenoel","id":1001,"pseudo":"MereNoel","email":"mereNoel@poleNord.com"},
+{"mdp":"@ntitan","id":1000,"pseudo":"AntiTitan","email":"anti@titan.com"},
+{"mdp":"nana","id":1000,"pseudo":"nana","email":"nana@nana.com"},
+{"mdp":"coucoujuju","id":1000,"pseudo":"pommepomme","email":"thomas.gigout@etudiant.univ-reims.fr"},
+]}
