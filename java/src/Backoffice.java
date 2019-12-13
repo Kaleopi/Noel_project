@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
  * @author Cyril Rabat
  * @version 2019/10/11
  */
-public class ServeurAuthentification {
+public class Backoffice {
     public static GestionnaireUsines gest = new GestionnaireUsines();
 
     public static void main(String[] args) {

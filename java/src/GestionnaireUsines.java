@@ -17,11 +17,11 @@ class GestionnaireUsines {
     /**
      * Constructeur GestionnaireUtilisateuers
      */
-    public GestionnaireUtilisateurs() {
-        this.usines = new HashMap<String>();
+    public GestionnaireUsines() {
+        this.usines = new ArrayList<String>();
     }
 
-    public HashMap<String> getUsines() {
+    public ArrayList<String> getUsines() {
         return this.usines;
     }
 

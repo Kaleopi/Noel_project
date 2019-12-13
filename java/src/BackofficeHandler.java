@@ -20,7 +20,7 @@ import java.util.HashMap;
 class BackofficeHandler implements HttpHandler {
     public static GestionnaireUsines gest;
 
-    public LoginHandler(GestionnaireUsines g) {
+    public BackofficeHandler(GestionnaireUsines g) {
         this.gest = g;
     }
 
