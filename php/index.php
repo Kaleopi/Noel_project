@@ -1,30 +1,9 @@
 <?php
 session_start();
 if(isset($_POST['connexion'])){
-    if (isset($_POST["login"]) && isset($_POST["mdp"])) {
-        $options = [
-            'http' => [
-                'method' => 'POST',
-                'header' => 'Content-type: applocation/x-www-form-irmencoded',
-                'content' => 'login=' . $_POST["login"] . '&' . 'mdp=' . $_POST["pwd"]
-            ]
-        ];
-        // echo $_POST["login"].'&'.$_POST["mdp"];
-        $contexte = stream_context_create($options);
+    if (isset($_POST["login"]) && isset($_POST["pwd"])) {
+        // header("Location: connexion.php");
 
-        if (($jsonTexte = @file_get_contents($URL, false, $contexte)) !== false) {
-            echo $jsonTexte;
-            $tableau = json_decode($jsonTexte, true);
-            if ($tableau['code'] == "OK")
-                echo '{"code":"OK", "message":"' . $tableau['message'] . ', "user":"' . $tableau['user'] . '"}';
-            else
-                // echo "<p>Erreur lors de la connexion : ".$tableau['message']."</p>";
-                echo '{"code":"erreur", "message":"' . $tableau['message'] . ', "user":"' . $tableau['user'] . '"}';
-        } else {
-            echo '{"code":"erreur", "message":"Erreur lors de la recuperation de donnees"}';
-        }
-    } else {
-        echo '{"code":"erreur", "message":"Pas de données dans le poste"}';
     }
 }
 else if(isset($_POST['inscription'])){
@@ -48,7 +27,7 @@ else if(isset($_POST['inscription'])){
 
 <body>
     <div class="container">
-        <form class="login_form shadow p-3 mb-5 bg-light rounded" method="POST">
+        <form class="login_form shadow p-3 mb-5 bg-light rounded" method="POST" action="connexion.php">
             <div class="form-group">
                 <label for="login">Login</label>
                 <input type="text" class="form-control" name="login" required>

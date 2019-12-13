@@ -25,7 +25,6 @@ class LoginHandler implements HttpHandler {
     }
 
     public void handle(HttpExchange t) {
-        // String reponse = "";
         HashMap<String, String> jtab = new HashMap<String, String>();
         String reponse = "";
 
@@ -69,7 +68,6 @@ class LoginHandler implements HttpHandler {
                 System.out.println(query);
                 System.out.println("here "+trouve);
                 if (trouve) {
-
                     Utilisateur uu = gest.searchUser(tab[0]);
                     System.out.println(uu);
                     jtab.put("code","OK");
@@ -78,12 +76,12 @@ class LoginHandler implements HttpHandler {
                     System.out.println(jtab);
                     JSONObject jsona = new JSONObject(jtab);
                     System.out.println(jsona);
-                    //reponse += jsona;
+                    reponse += jsona;
                     // redirection vers la liste des usines
-                    reponse+="<b><a href=\"http://localhost/projet3/php/backoffice.php\">Afficher la liste des usines</a></p>";
+                    // reponse+="<b><a href=\"http://localhost/projet3/php/backoffice.php\">Afficher la liste des usines</a></p>";
                 }else {
-                    reponse += "<p><b>Identifiant ou mot de passe incorrect</b></p>";
-                    reponse += "<b><a href=\"./index.html\">retour à l'acceuil</a></p>";
+                    // reponse += "<p><b>Identifiant ou mot de passe incorrect</b></p>";
+                    // reponse += "<b><a href=\"./index.html\">retour à l'acceuil</a></p>";
                     jtab.put("code","erreur");
                     jtab.put("message","login incorrect");
                     JSONObject jsona = new JSONObject(jtab);
