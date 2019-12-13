@@ -22,9 +22,7 @@ public class ServeurAuthentification {
             System.exit(-1);
         }
 
-        serveur.createContext("/index.html", new IndexHandler());
         serveur.createContext("/login.html", new LoginHandler(gest));
-        serveur.createContext("/createForm.html", new CreateFormHandler());
         serveur.createContext("/create.html", new CreateHandler(gest));
         serveur.setExecutor(null);
         serveur.start();
