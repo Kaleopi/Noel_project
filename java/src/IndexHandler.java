@@ -8,20 +8,23 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URLDecoder;
-import java.util.Base64;
-import org.json.*;
 
 /**
  * Classe correspondant au handler sur le contexte 'index.html'.
- * @author Cyril Rabat
- * @version 2019/10/11
+ * @author Antinea et Juliete
+ * @version 2019/10/18
  */
-class ChallengeHandler implements HttpHandler {
-    Base64.Encoder encoder = Base64.getEncoder();
-    Base64.Decoder decoder = Base64.getDecoder();
-    
-    String reponse ="";
+class IndexHandler implements HttpHandler {
+
     public void handle(HttpExchange t) {
+        String reponse = "<!DOCTYPE html>" +
+                         "<html lang=\"fr\">" +
+                         "<head>" +
+                         "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>" +
+                         "</head>" +
+                         "<body>" +
+                         "<h1>Bienvenue sur la page d'accueil</h1>";
+
         // Récupération des données
         URI requestedUri = t.getRequestURI();
         String query = requestedUri.getRawQuery();
@@ -34,39 +37,26 @@ class ChallengeHandler implements HttpHandler {
             System.err.println("Erreur lors de la récupération du flux " + e);
             System.exit(-1);
         }
- 
-        // Récupération des données en POST
-        try {
-            query = br.readLine();
-        } catch(IOException e) {
-            System.err.println("Erreur lors de la lecture d'une ligne " + e);
-            System.exit(-1);
-        }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        JSONObject json;
-        int code_retour;
-        String message_retour ="";
+        reponse += "<form action=\"./login.html\" method=\"post\" name=\"login\">"+
+                   "<fieldset> <legend>Connexion :</legend><label>Pseudo</label>"+
+                   "<input type=\"text\" name=\"pseudo\"/>"+
+                   "<label>Password</label>"+
+                   "<input type=\"password\" name=\"password\"/>"+
+                   "<button type=\"submit\">Submit</button></fieldset></form>"+
+                   "<br>"+"<a href=\"./createForm.html\">Créer un compte</a>";
 
-        // Affichage des données
-        reponse += "Données : ";
-        if(query == null)
-            reponse += "Aucune";
-        else {
-            
-        }            
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Envoi de l'en-tête Http
         try {
             Headers h = t.getResponseHeaders();
-            h.set("Content-Type", "application/json; charset=utf-8");
+            h.set("Content-Type", "text/html; charset=utf-8");
             t.sendResponseHeaders(200, reponse.getBytes().length);
         } catch(IOException e) {
             System.err.println("Erreur lors de l'envoi de l'en-tête : " + e);
             System.exit(-1);
         }
 
-        // Envoi du corps (données Json)
+        // Envoi du corps (données HTML)
         try {
             OutputStream os = t.getResponseBody();
             os.write(reponse.getBytes());

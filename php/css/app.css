@@ -1,8 +1,13 @@
-.container form{
-    margin-top:20%;
+body {
+    /* background-image: url("../img/bg-three.jpg"); */
+    background-size: cover;
 }
 
-.login_form{
+.container form {
+    margin-top: 20%;
+}
+
+.login_form {
     width: 500px;
     height: auto;
     margin: 0 auto;
