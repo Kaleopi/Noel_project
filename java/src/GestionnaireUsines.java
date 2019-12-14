@@ -13,19 +13,19 @@ import java.util.ArrayList;
  * @version 2019/10/30
  */
 class GestionnaireUsines {
-    private ArrayList<String> usines;
+    private ArrayList<Usine> usines;
     /**
      * Constructeur GestionnaireUtilisateuers
      */
     public GestionnaireUsines() {
-        this.usines = new ArrayList<String>();
+        this.usines = new ArrayList<Usine>();
     }
 
-    public ArrayList<String> getUsines() {
+    public ArrayList<Usine> getUsines() {
         return this.usines;
     }
 
-    public void addUsine(String nom) {
-        usines.add(nom);
+    public void addUsine(Usine u) {
+        usines.add(u);
     }
 }

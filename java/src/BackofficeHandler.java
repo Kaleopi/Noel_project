@@ -21,7 +21,7 @@ class BackofficeHandler implements HttpHandler {
     public static GestionnaireUsines gest;
 
     public BackofficeHandler(GestionnaireUsines g) {
-        this.gest = g;
+        Backoffice.gest = g;
     }
 
     public void handle(HttpExchange t) {

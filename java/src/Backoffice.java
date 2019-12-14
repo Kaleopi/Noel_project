@@ -2,6 +2,7 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpContext;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 
 /**
  * Classe correspondant à un serveur Http simple.
@@ -12,6 +13,7 @@ import java.net.InetSocketAddress;
  */
 public class Backoffice {
     public static GestionnaireUsines gest = new GestionnaireUsines();
+    private ArrayList<Usine> usines;
 
     public static void main(String[] args) {
         HttpServer serveur = null;

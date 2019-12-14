@@ -38,7 +38,7 @@ public class Commande {
     }
 
     public static Commande fromJSON(JSONObject j) {
-        return new Commande ((int)j.get("id"), Produit.formJSON((JSONObject)j.get("produit")), (int)j.get("qte"));
+        return new Commande ((int)j.get("id"), Produit.fromJSON((JSONObject)j.get("produit")), (int)j.get("qte"));
     }
 
 }

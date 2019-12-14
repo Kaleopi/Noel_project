@@ -1,14 +1,6 @@
 <?php
 session_start();
-if(isset($_POST['connexion'])){
-    if (isset($_POST["login"]) && isset($_POST["pwd"])) {
-        // header("Location: connexion.php");
 
-    }
-}
-else if(isset($_POST['inscription'])){
-
-};
 ?>
 
 <!DOCTYPE html>

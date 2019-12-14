@@ -30,7 +30,7 @@ class GestionnaireProduits {
         try {
             fs = new FileInputStream(this.chemin+nomUsine+".json");
         }catch(FileNotFoundException e) {
-            System.err.println("chemin incorrecte");
+            System.err.println("chemin incorrecte produits");
             System.exit(-1);
         }
 
