@@ -1,40 +1,37 @@
 import java.io.FileInputStream;
 import java.io.BufferedReader;
-import java.util.Scanner;
-import org.json.JSONObject;
-import org.json.JSONArray;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.io.RandomAccessFile;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-/**
- * Classe correspondant au gestionnaire des utilisateurs.
- * @author Juliete et Antinéa
- * @version 2019/10/30
- */
+import java.util.Scanner;
+
+import org.json.*;
+import java.util.HashMap;
+
+
  class GestionnaireUtilisateurs {
     HashMap<String, JSONObject> users;
-    String chemin = "../json/users/users.json";
+    String path = "../json/users/users.json";
     /**
      * Constructeur GestionnaireUtilisateuers
      */
     public GestionnaireUtilisateurs() {
         FileInputStream fs = null;
         try {
-            fs = new FileInputStream(this.chemin);
+            fs = new FileInputStream(this.path);
         }catch(FileNotFoundException e) {
             System.err.println("Chemin incorrect users");
             System.exit(-1);
         }
 
-        String json = new String();
-        Scanner scanner = new Scanner(fs);
-        while(scanner.hasNext()) {
-            json+= scanner.nextLine();
+        String json = "";
+        Scanner c = new Scanner(fs);
+        while(c.hasNext()) {
+            json+= c.nextLine();
         }
-        scanner.close();
+        c.close();
         json = json.replaceAll("[\t ]", "");
 
         try{
@@ -45,9 +42,9 @@ import java.io.File;
         }
 
         this.users = new HashMap<String, JSONObject>();
-        //lire tout les utilisateurs
-        JSONObject object = new JSONObject(json);
-        JSONArray tab = object.getJSONArray("users");
+
+        JSONObject obj = new JSONObject(json);
+        JSONArray tab = obj.getJSONArray("users");
         for(int i=0; i<tab.length(); i++) {
             JSONObject element = tab.getJSONObject(i);
             this.users.put((String)element.get("pseudo"), element);
@@ -68,25 +65,18 @@ import java.io.File;
     }
 
     public Utilisateur searchUser(String pseudo) {
-        // System.out.println("here search");
         JSONObject user = this.users.get(pseudo);
-        // System.out.println(user);
         Utilisateur u = null;
         if(user!=null && pseudo.equals((String)user.get("pseudo"))) {
-            // System.out.println((String)user.get("pseudo"));
-            // System.out.println((String)user.get("mdp"));
-            // System.out.println((String)user.get("email"));
-            // System.out.println((int)user.getInt("id"));
             u= new Utilisateur((String)user.get("pseudo"), (String)user.get("mdp"), (String)user.get("email"), (int)user.getInt("id"));
         }
-        // System.out.println(u);
         return u;
     }
 
     public boolean addUser(String email, String pseudo, String mdp) {
         try{
-            RandomAccessFile rac = new RandomAccessFile(new File(this.chemin), "rw");
-            rac.seek(rac.length()-3);
+            RandomAccessFile rac = new RandomAccessFile(new File(this.path), "rw");
+            rac.seek(rac.length()-4);
             if(this.users.get(pseudo)==null) {
                 Utilisateur u = new Utilisateur(pseudo, mdp, email, -1);
                 JSONObject obj = new JSONObject(u);

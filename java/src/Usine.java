@@ -122,7 +122,7 @@ public class Usine {
         // Envoi de la requête
         try {
             OutputStreamWriter writer = new OutputStreamWriter(connexion.getOutputStream());
-            writer.write("donnees=" + listeDonnees);
+            writer.write(""+ listeDonnees);
             writer.flush();
             writer.close();
         } catch (IOException e) {
@@ -177,8 +177,6 @@ public class Usine {
             System.exit(-1);
         }
 
-        
-        serveur.createContext("/produitHandler.html", new ProduitHandler());
         serveur.setExecutor(null);
         try{
             serveur.start();
@@ -187,8 +185,10 @@ public class Usine {
             j.put("nom",config.getString("nom"));
             j.put("port",config.getInt("port"));
             j.put("adresse",config.getString("adresse"));
-            donnees = URLEncoder.encode("donnees=", "UTF-8");
+            System.out.println(j);
+            donnees = URLEncoder.encode(""+j.toString(), "UTF-8");
             String reponse = envoiDonnees("http://localhost:8090/backoffice.html", donnees);
+            System.out.println(reponse);
         }catch(Exception ie){
             System.out.println("Le serveur n'a pas demarre : "+ie);
             System.exit(-1);

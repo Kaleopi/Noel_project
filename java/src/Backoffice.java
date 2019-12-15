@@ -1,7 +1,10 @@
-import java.io.IOException;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpContext;
+
+import java.io.IOException;
+
 import java.net.InetSocketAddress;
+
 import java.util.ArrayList;
 
 /**
@@ -13,8 +16,11 @@ import java.util.ArrayList;
  */
 public class BackOffice {
     public static GestionnaireUsines gest = new GestionnaireUsines();
-    private ArrayList<Usine> usines;
+    private static ArrayList<Usine> usines = new ArrayList<Usine>();
 
+    public static void addUsine(Usine u){
+        usines.add(u);
+    }
     public static void main(String[] args) {
         HttpServer serveur = null;
         try {
@@ -24,8 +30,8 @@ public class BackOffice {
             System.exit(-1);
         }
 
-        serveur.createContext("/backoffice.html", new BackofficeHandler(gest));
-        serveur.createContext("/recupUsine.html", new recupUsineHandler());
+        serveur.createContext("/backoffice.html", new BackOfficeHandler());
+        serveur.createContext("/recupUsine.html", new RecupUsineHandler());
         serveur.setExecutor(null);
         serveur.start();
 

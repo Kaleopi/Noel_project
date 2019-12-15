@@ -2,29 +2,21 @@
   "nom": "usine1",
   "produits": [{
     "id": 1,
-    "nom": "iPhone",
+    "nom": "Lego",
     "stock":2
   }, {
     "id": 2,
-    "nom": "Nounours",
+    "nom": "Peluche",
     "stock":3
-  }, {
-    "id": 3,
-    "nom": "Chausettes",
-    "stock":1
-  }, {
-    "id": 4,
-    "nom": "Plante",
-    "stock":9
   }
   ],
   "commandes": [{
     "id": 1,
     "produit": {
-      "id": 3,
-      "nom": "Chausettes",
+      "id": 1,
+      "nom": "Lego",
       "stock":1
     },
-    "qte": 10
-  }],
+    "quantite": 10
+  }]
 }

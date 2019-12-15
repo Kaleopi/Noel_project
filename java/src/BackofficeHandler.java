@@ -1,30 +1,31 @@
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 import java.net.URI;
 import java.net.URLDecoder;
-import org.json.JSONObject;
-import org.json.JSONArray;
+
+import org.json.*;
+
 import java.util.HashMap;
 
 
 class BackOfficeHandler implements HttpHandler {
-    public static GestionnaireUsines gest;
+    protected GestionnaireProduits gestP;
     HashMap<String, String> jtab = new HashMap<String, String>();
 
-    public BackOfficeHandler(GestionnaireUsines g) {
-        BackOffice.gest = g;
-    }
-
     public void handle(HttpExchange t) {
+        String reponse = "";
         // Récupération des données
         URI requestedUri = t.getRequestURI();
         String query = requestedUri.getRawQuery();
+        String query2 ="";
 
         // Utilisation d'un flux pour lire les données du message Http
         BufferedReader br = null;
@@ -38,10 +39,22 @@ class BackOfficeHandler implements HttpHandler {
         // Récupération des données en POST
         try {
             query = br.readLine();
+            query2 = URLDecoder.decode(query,"UTF-8");
+            System.out.println(query2);
+            JSONObject usineJSON = new JSONObject(query2);
+
+            GestionnaireProduits gestP = new GestionnaireProduits(usineJSON.getString("nom"));
+            System.out.println(gestP.getProduits().toString());
+            System.out.println(gestP.getCommandes().toString());
+            // Usine u = new Usine(usineJSON.getString("nom"),gestP.getProduits(),gestP.getCommandes());
+            // BackOffice.addUsine(u);
+            reponse+="OK";
+
         } catch (IOException e) {
             System.err.println("Erreur lors de la lecture d'une ligne " + e);
             System.exit(-1);
         }
+        System.out.println("Backoffice Handler : "+query2);
 
         // Envoi de l'en-tête Http
         try {

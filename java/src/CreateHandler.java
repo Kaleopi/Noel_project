@@ -1,26 +1,25 @@
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 import java.net.URI;
 import java.net.URLDecoder;
 import java.util.HashMap;
-import org.json.JSONObject;
 
-/**
- * Classe correspondant au handler sur le contexte 'login.html'.
- * @author Antinea et Juliete
- * @version 2019/10/18
- */
+import org.json.*;
+
+
 class CreateHandler implements HttpHandler {
     public static GestionnaireUtilisateurs gest;
 
-    public CreateHandler(GestionnaireUtilisateurs g) {
-        this.gest = g;
+    public CreateHandler(GestionnaireUtilisateurs gest) {
+        this.gest = gest;
     }
 
     public void handle(HttpExchange t) {
@@ -59,8 +58,6 @@ class CreateHandler implements HttpHandler {
         }else {
             try {
                 query = URLDecoder.decode(query, "UTF-8");
-                //vérification :
-                // login, email, mdp1, mdp2
                 String[] tab1=new String[2];
                 String[] tab2=new String[2];
                 String[] tab3=new String[2];
@@ -71,8 +68,7 @@ class CreateHandler implements HttpHandler {
                 tab2[0]=tab2[0].split("=",2)[1];
                 tab3[0]=tab3[0].split("=",2)[1];
                 boolean marche = gest.addUser(tab3[0], tab1[0], tab2[0]);
-                System.out.println("here" + tab2[0] +" "+ tab1[0]+" " + tab3[0]);
-                System.out.println("here marche = "+marche);
+                // System.out.println(tab2[0] +" "+ tab1[0]+" " + tab3[0]);
                 if(marche) {
                     Utilisateur uu = gest.searchUser(tab1[0]);
                     System.out.println(uu);
@@ -82,17 +78,12 @@ class CreateHandler implements HttpHandler {
                     JSONObject jsona = new JSONObject(jtab);
                     System.out.println(jsona);
                     reponse += jsona;
-                    // redirection vers la liste des usines
-                    // reponse += "<b>Votre comte a été créé, vous pouvez maintenant accéder à la liste des usines. </b></p>";
-                    // reponse+="<b><a href=\"http://localhost/projet3/php/backoffice.php\">Afficher la liste des usines</a></p>";
-                }else{
+                 }else{
                     jtab.put("code","erreur");
                     jtab.put("message","Ce pseudo existe deja");
                     JSONObject jsona = new JSONObject(jtab);
                     System.out.println(jsona);
                     reponse += jsona;
-                    // reponse += "<b>Ce pseudo existe déja, </b></p>";
-                    // reponse += "<a href=\"./createForm.html\">Retour à la création de compte</a>";
                 }
             } catch(UnsupportedEncodingException e) {
                 query = "";

@@ -1,5 +1,5 @@
 {
-  "nom": "usine1",
-  "port": 1056,
-  "adresse": "127.0.0.1"
+   "port": 5001,
+   "adresse": "127.0.0.1",
+   "nom": "usine1"
 }

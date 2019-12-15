@@ -28,7 +28,7 @@ public class Produit{
         this.stock=stock;
     }
 
-    public void incrementStock(int n) {
+    public void incrementerStock(int n) {
         this.stock+=n;
     }
 

@@ -1,21 +1,25 @@
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 import java.net.URI;
 import java.net.URLDecoder;
-import org.json.JSONObject;
-import org.json.JSONArray;
+
+import org.json.*;
+
 import java.util.HashMap;
 
 class RecupUsineHandler implements HttpHandler {
     HashMap<String, String> jtab = new HashMap<String, String>();
 
     public void handle(HttpExchange t) {
+        String reponse="";
         // Récupération des données
         URI requestedUri = t.getRequestURI();
         String query = requestedUri.getRawQuery();

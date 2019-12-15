@@ -1,12 +1,14 @@
+import java.util.Scanner;
+
 import java.io.FileInputStream;
 import java.io.BufferedReader;
-import java.util.Scanner;
-import org.json.JSONObject;
-import org.json.JSONArray;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.io.File;
+
+import java.util.ArrayList;
+
+import org.json.*;
 
 
 class GestionnaireProduits {
@@ -17,7 +19,8 @@ class GestionnaireProduits {
     public GestionnaireProduits(String nomUsine) {
         this.produits = new ArrayList<Produit>();
         this.commandes = new ArrayList<Commande>();
-
+        String prods = this.path+nomUsine+".json";
+        System.out.println(prods);
         System.out.println(nomUsine);
         FileInputStream fs = null;
         try {
@@ -63,9 +66,4 @@ class GestionnaireProduits {
         return this.commandes;
     }
 
-
-
-//    public void addProduits(String nom) {
-//        usines.add(nom);
-//    }
 }

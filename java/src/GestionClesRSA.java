@@ -23,7 +23,7 @@ import java.nio.file.Files;
 
 /**
  * Classe permettant de sauvegarder et charger des clés privées ou publiques depuis des fichiers.
- * @author Gigout Thomas
+ * @author Cyril Rabat
  * @version 05/11/2019
  */
 public class GestionClesRSA {
