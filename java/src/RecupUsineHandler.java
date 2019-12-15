@@ -12,14 +12,8 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.util.HashMap;
 
-
-class BackOfficeHandler implements HttpHandler {
-    public static GestionnaireUsines gest;
+class RecupUsineHandler implements HttpHandler {
     HashMap<String, String> jtab = new HashMap<String, String>();
-
-    public BackOfficeHandler(GestionnaireUsines g) {
-        BackOffice.gest = g;
-    }
 
     public void handle(HttpExchange t) {
         // Récupération des données

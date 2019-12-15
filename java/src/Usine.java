@@ -5,6 +5,16 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.lang.invoke.MethodHandles;
 import org.json.*;
+import java.util.Scanner;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.net.MalformedURLException;
+import java.lang.IllegalStateException;
 
 /**
  * @author Cyril Rabat
@@ -19,29 +29,24 @@ public class Usine {
     public Usine(String nom) {
         Usine.nom = nom;
     }
-
     public Usine(String nom, ArrayList<Produit> produits, ArrayList<Commande> commandes){
         Usine.nom = nom;
         this.produits = produits;
         this.commandes = commandes;
 
     }
-
     public ArrayList<Produit> getProduits() {
         return this.produits;
     }
-
     public ArrayList<Commande> getCommandes() {
         return this.commandes;
     }
-
     public String getNom() {
         return Usine.nom;
     }
     public void setNom(String nom){
         Usine.nom = nom;
     }
-
     @Override
     public String toString() {
         String retour = "";
@@ -55,7 +60,6 @@ public class Usine {
         }
         return retour;
     }
-    
     public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
         obj.put("nom", Usine.nom);
@@ -63,44 +67,99 @@ public class Usine {
         obj.put("commandes",this.commandes);
         return obj;
     }
-
     public static Usine fromJSON(JSONObject j) {
-        return new Usine((String) j.get("nom"), (ArrayList<Produit>) j.get("produits"), (ArrayList<Commande>) j.get("commandes"));
+        ArrayList<Produit> produits = new ArrayList<Produit>();
+        ArrayList<Commande> commandes = new ArrayList<Commande>();
+        JSONArray jsona = new JSONArray();
+        JSONObject jsono = new JSONObject();
+        jsona = j.getJSONArray("produits");
+        for(int i=0 ; i<jsona.length() ; i++){
+            jsono = jsona.getJSONObject(i);
+            Produit pro = Produit.fromJSON(jsono);
+            produits.add(pro);
+        }
+        jsona = j.getJSONArray("commandes");
+        for (int i = 0; i < jsona.length(); i++) {
+            jsono = jsona.getJSONObject(i);
+            Commande com = Commande.fromJSON(jsono);
+            commandes.add(com);
+        }
+
+        return new Usine((String) j.get("nom"), produits, commandes);
     }
-
-
-
-
+    
     public static Config creerFichierConfiguration(String nomFichier) {
         Config config = new Config(nomFichier, true);
-        /**
-         * #TODO# À l'aide des méthodes ajouterValeur, ajouter les valeurs par défaut
-         */
+
         config.ajouterValeur("adresse", "127.0.0.1");
+        config.ajouterValeur("nom", Usine.nom);
         config.ajouterValeur("port", 5001);
         // Sauvegarde du fichier de configuration
         config.sauvegarder();
         return config;
     }
+    public static String envoiDonnees(String uri, String listeDonnees) {
+        // Mise en forme de l'URL
+        String donnees = "";
+        URL url = null;
+        try {
+            url = new URL(uri);
+        } catch (MalformedURLException e) {
+            System.err.println("URL incorrect : " + e);
+            System.exit(-1);
+        }
+
+        // Etablissement de la connexion
+        URLConnection connexion = null;
+        try {
+            connexion = url.openConnection();
+            connexion.setDoOutput(true);
+        } catch (IOException e) {
+            System.err.println("Connexion impossible : " + e);
+            System.exit(-1);
+        }
+
+        // Envoi de la requête
+        try {
+            OutputStreamWriter writer = new OutputStreamWriter(connexion.getOutputStream());
+            writer.write("donnees=" + listeDonnees);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'envoi de la requete : " + e);
+            System.exit(-1);
+        }
+
+        // Réception des données depuis le serveur
+        donnees = "";
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
+            String tmp;
+            while ((tmp = reader.readLine()) != null)
+                donnees += tmp;
+            reader.close();
+        } catch (Exception e) {
+            System.err.println("Erreur lors de la lecture de la réponse : " + e);
+            System.exit(-1);
+        }
+        return donnees;
+    }
 
     public static void main(String[] args) {
-        // récupération de la configuration
+        String donnees = "";
+        Scanner c = new Scanner(System.in);
+        System.out.println("Nom de l'usine ? : ");
+        Usine.nom = c.nextLine();
         Config config = null;
         if (args.length == 0) {
-            // Pas d'argument : on ouvre le fichier json par défaut (nom de la classe)
-
             String className = MethodHandles.lookup().lookupClass().getSimpleName() + ".json";
             if (Config.fichierExiste(className))
                 config = new Config(className);
             else {
-                // System.err.println("Pas de fichier de config pour le serveur");
-                // System.exit(-1);
-                config = creerFichierConfiguration(Usine.nom);
+                config = creerFichierConfiguration(Usine.nom+".json");
             }
         }
         else {
-            // Un argument : c'est le nom du fichier JSON de config à ouvrir/créer
-
             if(Config.fichierExiste(args[0]))
                 config = new Config(args[0]);
             else {
@@ -109,10 +168,7 @@ public class Usine {
             }
         }
 
-        //initialiser le gestionnaire de produits
         gest = new GestionnaireProduits(config.getString("nom"));
-
-        //démarrage du serveur
         HttpServer serveur = null;
         try {
             serveur = HttpServer.create(new InetSocketAddress(config.getInt("port")), 0);
@@ -121,13 +177,24 @@ public class Usine {
             System.exit(-1);
         }
 
-        //chacune des parge envoie la réponse en format json elles reçoivent la requette http
-        serveur.createContext("/produitHandler.html", new ProduitHandler());//mettre gest dans constr
-        // serveur.createContext("/commanderProd.html", new CommandeHandler());//mettre gest dans constr
+        
+        serveur.createContext("/produitHandler.html", new ProduitHandler());
         serveur.setExecutor(null);
-        serveur.start();
+        try{
+            serveur.start();
+            System.out.println("Usine ["+config.getString("nom")+"] demarree sur le port "+config.getInt("port")+" . Pressez CRTL+C pour arrêter.");
+            JSONObject j = new JSONObject();
+            j.put("nom",config.getString("nom"));
+            j.put("port",config.getInt("port"));
+            j.put("adresse",config.getString("adresse"));
+            donnees = URLEncoder.encode("donnees=", "UTF-8");
+            String reponse = envoiDonnees("http://localhost:8090/backoffice.html", donnees);
+        }catch(Exception ie){
+            System.out.println("Le serveur n'a pas demarre : "+ie);
+            System.exit(-1);
+        }
 
-        System.out.println("Usine demarre sur le port "+config.getInt("port")+" . Pressez CRTL+C pour arrêter.");
+
     }
 
 }

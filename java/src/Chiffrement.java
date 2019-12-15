@@ -64,6 +64,7 @@ public class Chiffrement {
         String message = new String(bytes);
         System.out.println("Message : " + message);
     }
+    
     public static void chiffrement(String nomFichierPublique, String msg, String fichierSave){    
         // Recuperation de la cle publique
         PublicKey clePublique = GestionClesRSA.lectureClePublique(nomFichierPublique);

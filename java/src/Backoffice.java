@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Cyril Rabat
  * @version 2019/10/11
  */
-public class Backoffice {
+public class BackOffice {
     public static GestionnaireUsines gest = new GestionnaireUsines();
     private ArrayList<Usine> usines;
 
@@ -25,6 +25,7 @@ public class Backoffice {
         }
 
         serveur.createContext("/backoffice.html", new BackofficeHandler(gest));
+        serveur.createContext("/recupUsine.html", new recupUsineHandler());
         serveur.setExecutor(null);
         serveur.start();
 

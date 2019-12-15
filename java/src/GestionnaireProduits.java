@@ -9,37 +9,30 @@ import java.util.ArrayList;
 import java.io.File;
 
 
-/**
- * Classe correspondant au gestionnaire des utilisateurs.
- * @author Juliete et Antinéa
- * @version 2019/10/30
- */
 class GestionnaireProduits {
     private ArrayList<Produit> produits;
     private ArrayList<Commande> commandes;
-    private String chemin = "../../json/usines/";
+    private String path = "../json/usines/";
 
-    /**
-     * Constructeur GestionnaireUtilisateuers
-     */
     public GestionnaireProduits(String nomUsine) {
         this.produits = new ArrayList<Produit>();
         this.commandes = new ArrayList<Commande>();
 
+        System.out.println(nomUsine);
         FileInputStream fs = null;
         try {
-            fs = new FileInputStream(this.chemin+nomUsine+".json");
+            fs = new FileInputStream(this.path+nomUsine+".json");
         }catch(FileNotFoundException e) {
-            System.err.println("chemin incorrecte produits");
+            System.err.println("Chemin incorrect produits");
             System.exit(-1);
         }
 
         String json = new String();
-        Scanner scanner = new Scanner(fs);
-        while(scanner.hasNext()) {
-            json+= scanner.nextLine();
+        Scanner c = new Scanner(fs);
+        while(c.hasNext()) {
+            json+= c.nextLine();
         }
-        scanner.close();
+        c.close();
         json = json.replaceAll("[\t ]", "");
 
         try{

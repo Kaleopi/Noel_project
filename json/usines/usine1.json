@@ -3,19 +3,19 @@
   "produits": [{
     "id": 1,
     "nom": "iPhone",
-    "stock":
+    "stock":2
   }, {
     "id": 2,
     "nom": "Nounours",
-    "stock":
+    "stock":3
   }, {
     "id": 3,
     "nom": "Chausettes",
-    "stock":
+    "stock":1
   }, {
     "id": 4,
     "nom": "Plante",
-    "stock":
+    "stock":9
   }
   ],
   "commandes": [{
@@ -23,7 +23,7 @@
     "produit": {
       "id": 3,
       "nom": "Chausettes",
-      "stock":
+      "stock":1
     },
     "qte": 10
   }],

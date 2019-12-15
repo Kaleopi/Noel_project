@@ -25,7 +25,7 @@ import java.io.File;
         try {
             fs = new FileInputStream(this.chemin);
         }catch(FileNotFoundException e) {
-            System.err.println("chemin incorrecte users");
+            System.err.println("Chemin incorrect users");
             System.exit(-1);
         }
 
